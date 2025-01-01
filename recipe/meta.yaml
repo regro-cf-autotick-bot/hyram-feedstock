@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/hyram-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/hyram-{{ version }}.tar.gz
   sha256: 2865f9acb3d6a5eaa549f48f2b50db16e680c5a714bcad51bf4117da10a1e215
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >3.6,<3.11
+    - python {{ python_min }}
     - pip
   run:
-    - python >3.6,<3.11
+    - python >={{ python_min }},<3.11
     - matplotlib-base
     - scipy
     - coolprop >=6.3
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://hyram.sandia.gov/
